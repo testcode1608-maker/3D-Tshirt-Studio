@@ -1,59 +1,25 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0b0c10" />
-  <title>THREADLAB — 3D T-Shirt Studio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css" />
-  <script type="importmap">
-    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }
-  </script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0c10">
+<title>HANI — 3D Avatar Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
 </head>
-<body>
-  <div class="app-shell">
-    <header class="topbar">
-      <a class="brand" href="#"><span class="brand-mark">T</span><span>THREAD<span class="brand-light">LAB</span><small>3D GARMENT STUDIO</small></span></a>
-      <div class="top-center"><span class="live-dot"></span> DESIGN CANVAS <span class="top-divider">/</span> <span id="view-name">FRONT VIEW</span></div>
-      <div class="top-actions"><span class="save-status" id="save-status">● ALL CHANGES SAVED</span><button class="export-btn" id="export-btn">EXPORT DESIGN <span>↗</span></button></div>
-    </header>
-    <main class="workspace">
-      <aside class="sidebar">
-        <div class="panel-heading"><span>01 / GARMENT</span><span class="panel-line"></span></div>
-        <div class="product-card"><div class="mini-shirt">Ｔ</div><div><b>Essential Oversized</b><small>Heavyweight cotton · 240 GSM</small><small class="sku">STYLE / TS-001</small></div></div>
-        <div class="section-label">COLORWAY</div>
-        <div class="swatches" id="swatches">
-          <button class="swatch active" data-color="#e9e6df" style="--swatch:#e9e6df" aria-label="Bone"></button>
-          <button class="swatch" data-color="#17191d" style="--swatch:#17191d" aria-label="Black"></button>
-          <button class="swatch" data-color="#777e70" style="--swatch:#777e70" aria-label="Sage"></button>
-          <button class="swatch" data-color="#a9b9c7" style="--swatch:#a9b9c7" aria-label="Ice blue"></button>
-          <button class="swatch" data-color="#b96c51" style="--swatch:#b96c51" aria-label="Clay"></button>
-          <button class="swatch" data-color="#d8c5a7" style="--swatch:#d8c5a7" aria-label="Sand"></button>
-        </div>
-        <div class="section-label size-label">FIT & SIZE <span>OVERSIZED</span></div>
-        <div class="size-row"><button class="size-chip">S</button><button class="size-chip active">M</button><button class="size-chip">L</button><button class="size-chip">XL</button></div>
-        <div class="panel-heading design-heading"><span>02 / YOUR ARTWORK</span><span class="panel-line"></span></div>
-        <div class="upload-zone" id="upload-zone"><div class="upload-icon">＋</div><b>Upload your artwork</b><small>PNG, JPG or WEBP · Max 10MB</small><input type="file" id="image-upload" accept="image/png,image/jpeg,image/webp" hidden /></div>
-        <div class="section-label placement-label">PRINT PLACEMENT</div>
-        <div class="placement-row"><button class="placement active" data-place="center">CENTER</button><button class="placement" data-place="left">LEFT CHEST</button><button class="placement" data-place="back">BACK</button></div>
-        <div class="section-label">ARTWORK SCALE</div>
-        <input type="range" id="art-scale" min="45" max="130" value="100" />
-        <div class="range-ends"><span>SMALL</span><span id="scale-value">100%</span><span>LARGE</span></div>
-        <button class="remove-art" id="remove-art">× &nbsp; REMOVE ARTWORK</button>
-        <div class="sidebar-foot"><span class="foot-dot"></span> 3D PREVIEW ENGINE <b>ONLINE</b></div>
-      </aside>
-      <section class="stage">
-        <div class="stage-top"><div><span class="eyebrow">LIVE 3D PREVIEW</span><h1>Your vision.<br><em>In every dimension.</em></h1></div><div class="stage-index">01 <span>/</span> 01</div></div>
-        <div id="viewer" class="viewer"><div class="loading" id="loading"><span class="loader"></span> PREPARING YOUR GARMENT</div><div class="view-hint"><span>↔</span> DRAG TO ROTATE <i></i> SCROLL TO ZOOM</div><button class="reset-view" id="reset-view" title="Reset camera">↺</button><div class="view-controls"><button id="front-view" class="view-control active">FRONT</button><button id="back-view" class="view-control">BACK</button></div></div>
-        <div class="stage-bottom"><div><span class="tiny-label">MATERIAL</span><b>240 GSM / ORGANIC COTTON</b></div><div><span class="tiny-label">RENDER MODE</span><b><span class="render-dot"></span> REAL-TIME · PBR</b></div><div><span class="tiny-label">CAMERA</span><b>ORBIT / FREE LOOK</b></div></div>
-      </section>
-      <aside class="right-rail"><div class="rail-label">TOOLS</div><button class="rail-tool active" title="Select"><span>↖</span><small>SELECT</small></button><button class="rail-tool" id="rotate-tool" title="Rotate"><span>⟳</span><small>ORBIT</small></button><button class="rail-tool" id="reset-tool" title="Reset"><span>⌂</span><small>RESET</small></button><div class="rail-spacer"></div><div class="rail-help">SCROLL<br>TO ZOOM</div></aside>
-    </main>
-    <footer class="footer"><span>THREADLAB STUDIO <span class="muted">© 2026</span></span><span>DESIGNED FOR CREATORS <span class="muted">·</span> BUILT IN 3D</span><a href="https://github.com/testcode1608-maker/3D-Tshirt-Studio" target="_blank" rel="noreferrer">GITHUB ↗</a></footer>
-  </div>
-  <script type="module" src="./app.js"></script>
-</body>
-</html>
+<body><div class="app-shell">
+<header class="topbar"><a class="brand" href="#"><span class="brand-mark">H</span><span>HANI<span class="brand-light">.AI</span><small>PERSONAL AVATAR STUDIO</small></span></a><div class="top-center"><span class="live-dot"></span> LIVE 3D AVATAR <span class="top-divider">/</span> <span id="view-name">FRONT VIEW</span></div><div class="top-actions"><span class="save-status" id="save-status">● PHOTO LOADED</span><button class="export-btn" id="export-btn">EXPORT PNG ↗</button></div></header>
+<main class="workspace"><aside class="sidebar"><div class="panel-heading"><span>01 / YOUR AVATAR</span><span class="panel-line"></span></div>
+<div class="profile-card"><img src="./assets/img.jpg" alt="Your profile photo"><div><b>Personal avatar</b><small>Photo reference connected</small><small class="sku">SOURCE / IMG.JPG</small></div></div>
+<div class="section-label">AVATAR STYLE</div><div class="style-options"><button class="style-chip active" data-style="real">STUDIO</button><button class="style-chip" data-style="toon">TOON</button><button class="style-chip" data-style="mono">MONO</button></div>
+<div class="section-label">OUTFIT COLOR</div><div class="swatches" id="swatches"><button class="swatch active" data-color="#d8d5ce" style="--swatch:#d8d5ce" aria-label="Stone"></button><button class="swatch" data-color="#17191d" style="--swatch:#17191d" aria-label="Black"></button><button class="swatch" data-color="#657b69" style="--swatch:#657b69" aria-label="Olive"></button><button class="swatch" data-color="#718ca5" style="--swatch:#718ca5" aria-label="Blue"></button><button class="swatch" data-color="#a96850" style="--swatch:#a96850" aria-label="Clay"></button><button class="swatch" data-color="#c6a875" style="--swatch:#c6a875" aria-label="Sand"></button></div>
+<div class="section-label">PHOTO REFERENCE</div><label class="upload-zone" for="image-upload"><span class="upload-icon">＋</span><b>Change your photo</b><small>JPG, PNG or WEBP · Max 10MB</small><input type="file" id="image-upload" accept="image/png,image/jpeg,image/webp" hidden></label>
+<div class="section-label">AVATAR SCALE</div><input type="range" id="avatar-scale" min="80" max="120" value="100"><div class="range-ends"><span>80%</span><span id="scale-value">100%</span><span>120%</span></div>
+<div class="sidebar-note">This is a stylized 3D avatar using your uploaded photo as a face reference. A single profile image cannot reconstruct unseen facial angles or an exact full body.</div>
+<div class="sidebar-foot"><span class="foot-dot"></span> 3D PREVIEW ENGINE <b>ONLINE</b></div></aside>
+<section class="stage"><div class="stage-top"><div><span class="eyebrow">YOUR DIGITAL IDENTITY</span><h1>Meet your<br><em>3D self.</em></h1></div><div class="stage-index">01 <span>/</span> 01</div></div>
+<div id="viewer" class="viewer"><div class="loading" id="loading"><span class="loader"></span> BUILDING YOUR AVATAR</div><div class="view-hint"><span>↔</span> DRAG TO ROTATE <i></i> SCROLL TO ZOOM</div><button class="reset-view" id="reset-view" title="Reset camera">↺</button><div class="view-controls"><button id="front-view" class="view-control active">FRONT</button><button id="side-view" class="view-control">SIDE</button><button id="back-view" class="view-control">BACK</button></div></div>
+<div class="stage-bottom"><div><span class="tiny-label">MODEL</span><b>STYLIZED HUMANOID</b></div><div><span class="tiny-label">FACE REFERENCE</span><b><span class="render-dot"></span> YOUR PHOTO</b></div><div><span class="tiny-label">CAMERA</span><b>ORBIT / FREE LOOK</b></div></div></section>
+<aside class="right-rail"><div class="rail-label">TOOLS</div><button class="rail-tool active" id="orbit-tool" title="Orbit"><span>⟳</span><small>ORBIT</small></button><button class="rail-tool" id="reset-tool" title="Reset"><span>⌂</span><small>RESET</small></button><div class="rail-spacer"></div><div class="rail-help">DRAG<br>TO ROTATE</div></aside></main>
+<footer class="footer"><span>HANI.AI STUDIO <span class="muted">© 2026</span></span><span>YOUR PERSONAL DIGITAL AVATAR <span class="muted">·</span> BUILT IN 3D</span><a href="https://github.com/testcode1608-maker/3D-Tshirt-Studio" target="_blank" rel="noreferrer">GITHUB ↗</a></footer></div><script type="module" src="./app.js"></script></body></html>
