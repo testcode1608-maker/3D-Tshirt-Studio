@@ -37,7 +37,7 @@ sphere(avatar,[.27,.10,.075],dark,[0,1.48,.33]);
 const faceCanvas=document.createElement('canvas');faceCanvas.width=512;faceCanvas.height=512;const fctx=faceCanvas.getContext('2d');
 const faceTexture=new THREE.CanvasTexture(faceCanvas);faceTexture.colorSpace=THREE.SRGBColorSpace;
 const faceMaterial=new THREE.MeshBasicMaterial({map:faceTexture,transparent:true,side:THREE.DoubleSide,depthWrite:false});
-const face=new THREE.Mesh(new THREE.PlaneGeometry(.54,.57),faceMaterial);face.position.set(0,1.29,.355);avatar.add(face);
+const face=new THREE.Mesh(new THREE.PlaneGeometry(.54,.57),faceMaterial);face.position.set(0,1.29,.395);avatar.add(face);
 function loadFace(src){const img=new Image();img.onload=()=>{fctx.clearRect(0,0,512,512);fctx.save();fctx.beginPath();fctx.roundRect(0,0,512,512,92);fctx.clip();const side=Math.min(img.width,img.height),sx=(img.width-side)/2,sy=(img.height-side)/2;fctx.drawImage(img,sx,sy,side,side,0,0,512,512);fctx.restore();faceTexture.needsUpdate=true;document.querySelector('#save-status').textContent='● PHOTO CONNECTED';};img.onerror=()=>{document.querySelector('#save-status').textContent='● PHOTO NOT FOUND';};img.src=src;}
 loadFace('./assets/img.jpg');
 function resize(){const w=viewer.clientWidth,h=viewer.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);}new ResizeObserver(resize).observe(viewer);resize();
