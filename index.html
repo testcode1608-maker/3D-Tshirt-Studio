@@ -1,25 +1,82 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0c10">
-<title>HANI — 3D Avatar Studio</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101114">
+<title>3D T-Shirt Studio — استوديو تصميم الملابس</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./style.css">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
 </head>
-<body><div class="app-shell">
-<header class="topbar"><a class="brand" href="#"><span class="brand-mark">H</span><span>HANI<span class="brand-light">.AI</span><small>PERSONAL AVATAR STUDIO</small></span></a><div class="top-center"><span class="live-dot"></span> LIVE 3D AVATAR <span class="top-divider">/</span> <span id="view-name">FRONT VIEW</span></div><div class="top-actions"><span class="save-status" id="save-status">● PHOTO LOADED</span><button class="export-btn" id="export-btn">EXPORT PNG ↗</button></div></header>
-<main class="workspace"><aside class="sidebar"><div class="panel-heading"><span>01 / YOUR AVATAR</span><span class="panel-line"></span></div>
-<div class="profile-card"><img src="./assets/img.jpg" alt="Your profile photo"><div><b>Personal avatar</b><small>Photo reference connected</small><small class="sku">SOURCE / IMG.JPG</small></div></div>
-<div class="section-label">AVATAR STYLE</div><div class="style-options"><button class="style-chip active" data-style="real">STUDIO</button><button class="style-chip" data-style="toon">TOON</button><button class="style-chip" data-style="mono">MONO</button></div>
-<div class="section-label">OUTFIT COLOR</div><div class="swatches" id="swatches"><button class="swatch active" data-color="#d8d5ce" style="--swatch:#d8d5ce" aria-label="Stone"></button><button class="swatch" data-color="#17191d" style="--swatch:#17191d" aria-label="Black"></button><button class="swatch" data-color="#657b69" style="--swatch:#657b69" aria-label="Olive"></button><button class="swatch" data-color="#718ca5" style="--swatch:#718ca5" aria-label="Blue"></button><button class="swatch" data-color="#a96850" style="--swatch:#a96850" aria-label="Clay"></button><button class="swatch" data-color="#c6a875" style="--swatch:#c6a875" aria-label="Sand"></button></div>
-<div class="section-label">PHOTO REFERENCE</div><label class="upload-zone" for="image-upload"><span class="upload-icon">＋</span><b>Change your photo</b><small>JPG, PNG or WEBP · Max 10MB</small><input type="file" id="image-upload" accept="image/png,image/jpeg,image/webp" hidden></label>
-<div class="section-label">AVATAR SCALE</div><input type="range" id="avatar-scale" min="80" max="120" value="100"><div class="range-ends"><span>80%</span><span id="scale-value">100%</span><span>120%</span></div>
-<div class="sidebar-note">This is a stylized 3D avatar using your uploaded photo as a face reference. A single profile image cannot reconstruct unseen facial angles or an exact full body.</div>
-<div class="sidebar-foot"><span class="foot-dot"></span> 3D PREVIEW ENGINE <b>ONLINE</b></div></aside>
-<section class="stage"><div class="stage-top"><div><span class="eyebrow">YOUR DIGITAL IDENTITY</span><h1>Meet your<br><em>3D self.</em></h1></div><div class="stage-index">01 <span>/</span> 01</div></div>
-<div id="viewer" class="viewer"><div class="loading" id="loading"><span class="loader"></span> BUILDING YOUR AVATAR</div><div class="view-hint"><span>↔</span> DRAG TO ROTATE <i></i> SCROLL TO ZOOM</div><button class="reset-view" id="reset-view" title="Reset camera">↺</button><div class="view-controls"><button id="front-view" class="view-control active">FRONT</button><button id="side-view" class="view-control">SIDE</button><button id="back-view" class="view-control">BACK</button></div></div>
-<div class="stage-bottom"><div><span class="tiny-label">MODEL</span><b>STYLIZED HUMANOID</b></div><div><span class="tiny-label">FACE REFERENCE</span><b><span class="render-dot"></span> YOUR PHOTO</b></div><div><span class="tiny-label">CAMERA</span><b>ORBIT / FREE LOOK</b></div></div></section>
-<aside class="right-rail"><div class="rail-label">TOOLS</div><button class="rail-tool active" id="orbit-tool" title="Orbit"><span>⟳</span><small>ORBIT</small></button><button class="rail-tool" id="reset-tool" title="Reset"><span>⌂</span><small>RESET</small></button><div class="rail-spacer"></div><div class="rail-help">DRAG<br>TO ROTATE</div></aside></main>
-<footer class="footer"><span>HANI.AI STUDIO <span class="muted">© 2026</span></span><span>YOUR PERSONAL DIGITAL AVATAR <span class="muted">·</span> BUILT IN 3D</span><a href="https://github.com/testcode1608-maker/3D-Tshirt-Studio" target="_blank" rel="noreferrer">GITHUB ↗</a></footer></div><script type="module" src="./app.js"></script></body></html>
+<body>
+<div class="app-shell">
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-mark">3D</span><span><b>3D T-SHIRT STUDIO</b><small>استوديو تصميم الملابس الشخصي</small></span></a>
+  <div class="top-center"><span class="live-dot"></span> مساحة التصميم <span class="top-divider">/</span><span id="view-name">الواجهة الأمامية</span></div>
+  <div class="top-actions"><span class="save-status" id="save-status">● جاهز للتصميم</span><button class="export-btn" id="export-btn">تصدير الصورة <span>↗</span></button></div>
+</header>
+<main class="workspace">
+<aside class="sidebar">
+  <div class="panel-heading"><span>01 / القميص</span><span class="panel-line"></span></div>
+  <div class="product-card"><div class="mini-shirt">3D</div><div><b>قميص أساسي واسع</b><small>قطن ثقيل · مظهر واقعي</small><small class="sku">MODEL / TS-001</small></div></div>
+  <div class="section-label">لون القماش</div>
+  <div class="swatches" id="swatches">
+    <button class="swatch active" data-color="#e9e6df" style="--swatch:#e9e6df" aria-label="عاجي"></button>
+    <button class="swatch" data-color="#17191d" style="--swatch:#17191d" aria-label="أسود"></button>
+    <button class="swatch" data-color="#687b6b" style="--swatch:#687b6b" aria-label="زيتي"></button>
+    <button class="swatch" data-color="#7796ad" style="--swatch:#7796ad" aria-label="أزرق"></button>
+    <button class="swatch" data-color="#ad654f" style="--swatch:#ad654f" aria-label="طوبي"></button>
+    <button class="swatch" data-color="#c7ae88" style="--swatch:#c7ae88" aria-label="رملي"></button>
+  </div>
+  <div class="section-label size-label">قَصّة القميص <span id="fit-label">واسع</span></div>
+  <div class="fit-row"><button class="fit-chip" data-fit="regular">عادي</button><button class="fit-chip active" data-fit="oversized">واسع</button><button class="fit-chip" data-fit="slim">ضيق</button></div>
+  <div class="section-label">المقاس</div>
+  <div class="size-row"><button class="size-chip">S</button><button class="size-chip active">M</button><button class="size-chip">L</button><button class="size-chip">XL</button><button class="size-chip">XXL</button></div>
+  <div class="panel-heading design-heading"><span>02 / التصميم</span><span class="panel-line"></span></div>
+  <label class="upload-zone" for="image-upload"><span class="upload-icon">＋</span><b>ارفع شعارك أو صورتك</b><small>PNG أو JPG أو WEBP · حتى 10MB</small><input type="file" id="image-upload" accept="image/png,image/jpeg,image/webp" hidden></label>
+  <div class="section-label">موضع الطباعة</div>
+  <div class="placement-row"><button class="placement active" data-place="center">وسط الصدر</button><button class="placement" data-place="left">الصدر الأيسر</button><button class="placement" data-place="back">الظهر</button></div>
+  <div class="section-label">حجم التصميم</div>
+  <input type="range" id="art-scale" min="45" max="130" value="100">
+  <div class="range-ends"><span>صغير</span><span id="scale-value">100%</span><span>كبير</span></div>
+  <button class="remove-art" id="remove-art">× إزالة التصميم الحالي</button>
+  <div class="ai-card">
+    <div class="ai-heading"><span class="ai-spark">✦</span><b>مصمم الذكاء الاصطناعي</b><span class="soon">يتطلب ربط الخدمة</span></div>
+    <textarea id="ai-prompt" rows="3" placeholder="صف التصميم الذي تريده... مثال: نسر هندسي باللونين الأسود والذهبي"></textarea>
+    <button id="ai-generate" class="ai-button">إنشاء تصميم بالذكاء الاصطناعي <span>✦</span></button>
+    <p id="ai-status">سيتم تفعيل التوليد بعد ربط مزود الذكاء الاصطناعي ومفتاح API.</p>
+  </div>
+  <div class="sidebar-foot"><span class="foot-dot"></span> محرك العرض ثلاثي الأبعاد <b>يعمل</b></div>
+</aside>
+<section class="stage">
+  <div class="stage-top"><div><span class="eyebrow">معاينة مباشرة</span><h1>حوّل فكرتك إلى<br><em>قطعة أزياء فريدة.</em></h1></div><div class="stage-index">01 <span>/</span> 02</div></div>
+  <div id="viewer" class="viewer">
+    <div class="loading" id="loading"><span class="loader"></span> جارٍ تجهيز القميص ثلاثي الأبعاد</div>
+    <div class="view-hint"><span>↔</span> اسحب للتدوير <i></i> مرّر للتكبير</div>
+    <button class="reset-view" id="reset-view" title="إعادة ضبط">↺</button>
+    <div class="view-controls"><button id="front-view" class="view-control active">الأمام</button><button id="back-view" class="view-control">الخلف</button></div>
+    <div class="stage-caption" id="stage-caption">معاينة القميص — اسحب بالماوس لتدويره</div>
+  </div>
+  <div class="stage-bottom"><div><span class="tiny-label">الخامة</span><b>نسيج قطن واقعي</b></div><div><span class="tiny-label">العرض</span><b><span class="render-dot"></span> ثلاثي الأبعاد مباشر</b></div><div><span class="tiny-label">التحكم</span><b>تدوير / تكبير / تصغير</b></div></div>
+</section>
+<aside class="personal-panel">
+  <div class="panel-heading"><span>03 / هويتك الشخصية</span><span class="panel-line"></span></div>
+  <div class="personal-intro"><div class="profile-orb">ش</div><div><b>عارض الأزياء الخاص بك</b><small>جهّز صورك لبناء نموذج يشبهك</small></div></div>
+  <p class="panel-copy">أضف صوراً واضحة حتى يمكن إعداد نموذج رقمي أقرب إلى ملامحك وبنية جسمك.</p>
+  <div class="photo-slot"><label for="portrait-upload"><span class="slot-icon">＋</span><b>صورة الوجه من الأمام</b><small>إضاءة واضحة ومن دون فلتر</small><input id="portrait-upload" type="file" accept="image/*" hidden></label><img id="portrait-preview" alt="معاينة صورة الوجه" hidden></div>
+  <div class="photo-slot"><label for="side-upload"><span class="slot-icon">＋</span><b>صورة جانبية</b><small>الوجه من الجانب</small><input id="side-upload" type="file" accept="image/*" hidden></label><img id="side-preview" alt="معاينة الصورة الجانبية" hidden></div>
+  <div class="photo-slot"><label for="full-upload"><span class="slot-icon">＋</span><b>صورة كاملة للجسم</b><small>من الرأس إلى القدمين</small><input id="full-upload" type="file" accept="image/*" hidden></label><img id="full-preview" alt="معاينة صورة الجسم" hidden></div>
+  <div class="model-upload">
+    <div class="section-label">نموذجك ثلاثي الأبعاد</div>
+    <label class="glb-zone" for="model-upload"><span>⬆</span><b>تحميل نموذج شخصي GLB / GLTF</b><small>لعرض نموذجك الحقيقي داخل الاستوديو</small><input id="model-upload" type="file" accept=".glb,.gltf" hidden></label>
+    <div class="model-status" id="model-status">لم يتم تحميل نموذج ثلاثي الأبعاد بعد.</div>
+  </div>
+  <div class="privacy-note">🔒 صورك تبقى في المتصفح أثناء هذه الجلسة. رفع الصور وحده لا ينشئ نموذجاً ثلاثي الأبعاد تلقائياً؛ يلزم ربط خدمة متخصصة أو تحميل ملف نموذج GLB.</div>
+</aside>
+<aside class="right-rail"><div class="rail-label">الأدوات</div><button class="rail-tool active" id="select-tool"><span>↖</span><small>تحديد</small></button><button class="rail-tool" id="rotate-tool"><span>⟳</span><small>دوران</small></button><button class="rail-tool" id="reset-tool"><span>⌂</span><small>إعادة</small></button><div class="rail-spacer"></div><div class="rail-help">اسحب<br>للتدوير</div></aside>
+</main>
+<footer class="footer"><span>3D T-SHIRT STUDIO <span class="muted">© 2026</span></span><span>مساحة تصميم شخصية <span class="muted">·</span> تجربة ثلاثية الأبعاد</span><a href="https://github.com/testcode1608-maker/3D-Tshirt-Studio" target="_blank" rel="noreferrer">GITHUB ↗</a></footer>
+</div>
+<script type="module" src="./app.js"></script>
+</body></html>
