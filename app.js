@@ -8,7 +8,7 @@ const loading = $('#loading');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('#1b1f26');
 const camera = new THREE.PerspectiveCamera(34, 1, .1, 100);
-camera.position.set(0, .2, 6.4);
+camera.position.set(0, -.35, 9.4);
 const renderer = new THREE.WebGLRenderer({antialias:true, alpha:false, preserveDrawingBuffer:true});
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -22,9 +22,9 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = .055;
 controls.enablePan = true;
-controls.minDistance = 3.4;
-controls.maxDistance = 10;
-controls.target.set(0, 0, 0);
+controls.minDistance = 5.8;
+controls.maxDistance = 13.5;
+controls.target.set(0, -.45, 0);
 controls.maxPolarAngle = Math.PI * .88;
 
 scene.add(new THREE.HemisphereLight(0xe2e9f4, 0x29242a, 2.0));
@@ -34,7 +34,7 @@ key.shadow.mapSize.set(2048, 2048); scene.add(key);
 const fill = new THREE.DirectionalLight(0x9fbfff, 1.7); fill.position.set(4, 1, 3); scene.add(fill);
 const rim = new THREE.DirectionalLight(0xffffff, 2.4); rim.position.set(0, 3, -4); scene.add(rim);
 const floor = new THREE.Mesh(new THREE.CircleGeometry(4.5, 80), new THREE.MeshStandardMaterial({color:'#252a32', roughness:.94}));
-floor.rotation.x = -Math.PI / 2; floor.position.y = -2.04; floor.receiveShadow = true; scene.add(floor);
+floor.rotation.x = -Math.PI / 2; floor.position.y = -3.28; floor.receiveShadow = true; scene.add(floor);
 
 function makeFabricTexture() {
   const canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 512;
@@ -54,6 +54,39 @@ function makeFabricTexture() {
 }
 const fabric = makeFabricTexture();
 const shirtMaterial = new THREE.MeshStandardMaterial({color:'#e9e6df', map:fabric, roughness:.9, metalness:0, side:THREE.DoubleSide});
+const mannequin = new THREE.Group();
+scene.add(mannequin);
+const skinMaterial = new THREE.MeshStandardMaterial({color:'#b98568', roughness:.78, metalness:0});
+function addMannequinPart(geometry, position, scale = [1,1,1]) {
+  const mesh = new THREE.Mesh(geometry, skinMaterial);
+  mesh.position.set(...position);
+  mesh.scale.set(...scale);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  mannequin.add(mesh);
+  return mesh;
+}
+function addLimb(start, end, radius) {
+  const a = new THREE.Vector3(...start), b = new THREE.Vector3(...end);
+  const direction = new THREE.Vector3().subVectors(b, a);
+  const mesh = new THREE.Mesh(new THREE.CapsuleGeometry(radius, Math.max(.01, direction.length() - radius * 2), 6, 12), skinMaterial);
+  mesh.position.copy(a).add(b).multiplyScalar(.5);
+  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), direction.normalize());
+  mesh.castShadow = true; mesh.receiveShadow = true; mannequin.add(mesh);
+  return mesh;
+}
+// A clean, neutral 3D fitting mannequin: head, neck, arms, hands and legs.
+addMannequinPart(new THREE.SphereGeometry(.31, 32, 24), [0, 2.02, -.12], [0.88, 1.12, .86]);
+addMannequinPart(new THREE.CylinderGeometry(.115, .14, .34, 24), [0, 1.64, -.12]);
+addMannequinPart(new THREE.CapsuleGeometry(.43, .92, 8, 16), [0, .12, -.28], [1.12, 1.0, .72]);
+for (const side of [-1, 1]) {
+  addLimb([side*.53, 1.02, -.18], [side*.91, .34, -.13], .145);
+  addLimb([side*.91, .34, -.13], [side*1.02, -.62, -.08], .115);
+  addMannequinPart(new THREE.SphereGeometry(.13, 20, 16), [side*1.02, -.78, -.06], [.82, 1.25, .62]);
+  addLimb([side*.29, -1.42, -.22], [side*.34, -2.28, -.18], .19);
+  addLimb([side*.34, -2.28, -.18], [side*.37, -3.12, -.12], .145);
+  addMannequinPart(new THREE.SphereGeometry(.19, 24, 16), [side*.37, -3.18, .02], [1.0, .58, 1.55]);
+}
 const shirt = new THREE.Group(); scene.add(shirt);
 const outline = new THREE.Shape();
 outline.moveTo(-.58,1.38); outline.lineTo(-1.43,.92); outline.lineTo(-1.12,.20);
@@ -106,8 +139,9 @@ function setPlacement(value) {
   document.querySelectorAll('.placement').forEach(b=>b.classList.toggle('active',b.dataset.place===value));
 }
 function setGarmentView(value) {
-  shirt.visible = true; personalModel.visible = false;
+  shirt.visible = true; mannequin.visible = true; personalModel.visible = false;
   shirt.rotation.y = value==='back' ? Math.PI : 0;
+  mannequin.rotation.y = value==='back' ? Math.PI : 0;
   $('#front-view').classList.toggle('active',value==='front');
   $('#back-view').classList.toggle('active',value==='back');
   $('#model-view').classList.remove('active');
@@ -130,7 +164,7 @@ function showPersonalModel() {
     $('#model-status').textContent = 'حمّل ملف GLB أو GLTF أولاً لعرض نموذجك.';
     return;
   }
-  shirt.visible = false; personalModel.visible = true;
+  shirt.visible = false; mannequin.visible = false; personalModel.visible = true;
   $('#front-view').classList.remove('active'); $('#back-view').classList.remove('active');
   $('#model-view').classList.add('active');
   $('#view-name').textContent = 'عارضك الشخصي';
@@ -222,7 +256,7 @@ $('#front-view').addEventListener('click',()=>setGarmentView('front'));
 $('#back-view').addEventListener('click',()=>setGarmentView('back'));
 $('#model-view').addEventListener('click',showPersonalModel);
 function resetCamera() {
-  camera.position.set(0,.2,6.4); controls.target.set(0,0,0); controls.update();
+  camera.position.set(0,-.35,9.4); controls.target.set(0,-.45,0); controls.update();
   setGarmentView('front'); applyFit(fit);
 }
 $('#reset-view').addEventListener('click',resetCamera);
