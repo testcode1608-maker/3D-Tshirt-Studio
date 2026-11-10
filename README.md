@@ -1,37 +1,39 @@
-# THREADLAB — 3D T-Shirt Studio
+# 3D T-Shirt Studio
 
-A browser-based 3D T-shirt customizer built with Three.js.
+استوديو ويب لتخصيص القمصان مع معاينة ثلاثية الأبعاد وواجهة عربية RTL.
 
-## Features
-- Interactive 3D garment preview with orbit, pan and zoom controls
-- Front and back views
-- Six fabric colorways
-- Upload PNG, JPG or WEBP artwork (up to 10 MB)
-- Artwork placement and scale controls
-- Real-time studio lighting, shadows and a procedural fabric texture
-- Export a PNG snapshot of the current 3D preview
-- Responsive desktop and mobile layout
+## الميزات الحالية
+- معاينة قميص ثلاثي الأبعاد مع تدوير الماوس والتكبير والتصغير.
+- عرض الواجهة الأمامية والخلفية.
+- ألوان متعددة للقماش وثلاث قصّات ومقاسات.
+- رفع شعار أو صورة وتحديد مكان الطباعة وحجمها.
+- تصدير صورة PNG للمعاينة.
+- مساحة لإضافة صورك الشخصية: الوجه الأمامي، الجانب، وصورة كاملة للجسم.
+- تحميل نموذج شخصي بصيغة GLB وعرضه داخل المشهد.
+- تصميم متجاوب للهاتف والكمبيوتر.
 
-## Run locally
-Because this project uses JavaScript modules, serve the folder with a local web server:
+## تشغيل المشروع
+لأن المشروع يستخدم JavaScript modules، شغّله عبر خادم محلي:
 
 ```bash
 npx serve .
 ```
 
-Then open the local URL printed by the server.
+ثم افتح الرابط المحلي الذي يظهر في الطرفية.
 
-## Deploy
-The site is static and can be hosted on GitHub Pages:
-1. Open repository **Settings → Pages**.
-2. Choose **Deploy from a branch**.
-3. Select **main** and **/(root)**, then save.
+## النشر على GitHub Pages
+1. افتح Settings ثم Pages.
+2. اختر Deploy from a branch.
+3. اختر الفرع main والمجلد /(root)، ثم Save.
 
-The first version uses a procedural Three.js garment mesh. For a true Blender-quality cloth asset, export a detailed model from Blender as GLB and replace the procedural garment in `app.js`.
+## ملاحظات مهمة حول الذكاء الاصطناعي والعارض الشخصي
+- رفع الصور الشخصية يحفظ معاينتها محلياً في المتصفح أثناء الجلسة فقط؛ لا يتم إرسالها إلى خادم.
+- لا يمكن استخراج نموذج ثلاثي الأبعاد دقيق لشخص من صورة واحدة صغيرة. يلزم صور واضحة متعددة، ثم خدمة متخصصة لتحويل الصور إلى نموذج ثلاثي الأبعاد أو ملف GLB جاهز.
+- يمكن تحميل نموذج GLB/GLTF موجود لعرضه. تحميل صور الوجه والجسم وحده لا ينشئ نموذجاً آلياً حتى يتم ربط خدمة توليد مناسبة.
+- زر توليد التصاميم بالذكاء الاصطناعي يوضح أن الربط الخلفي مطلوب؛ لا يعرض نتائج تجريبية أو وهمية. يجب تنفيذ اتصال AI عبر خادم آمن وعدم وضع مفاتيح API داخل ملفات المتصفح.
 
-## Controls
-- Left-drag: rotate the garment view
-- Right-drag: pan
-- Mouse wheel: zoom
-- Front / Back: switch garment view
-- Reset: restore the camera
+## عناصر التحكم
+- سحب بالزر الأيسر: تدوير القميص أو النموذج.
+- عجلة الماوس: تكبير وتصغير.
+- الأمام / الخلف: تغيير زاوية عرض القميص.
+- زر الدوران: تشغيل أو إيقاف الدوران التلقائي.
